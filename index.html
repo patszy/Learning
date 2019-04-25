@@ -2,10 +2,52 @@
 <html lang="pl">
 	<head>
 		<meta charset="utf-8">
-		<title>Main Page</title>
-		<meta name="description" content="First page of learning">
-		<link rel="stylesheet" href="">
+		<title>Responsive design</title>
+		<style>
+			body{
+				font-family: sans-serif;
+				font-size: 15px;
+			}
+			.main{
+				background-color: pink;
+			}
+			ul{
+				margin: 0;
+				padding: 0;
+				list-style: none;
+			}
+			article{
+				padding: 3em;
+			}
+
+			/* Linki w menu wypełniają całe pole */
+			nav a{
+				display: block;
+				color: black;
+				text-decoration: none;
+				padding: .3em;
+				background-color: gold;
+			}
+		</style>
 	</head>
 	<body>
+		<div class='container'>
+			<nav>
+				<ul>
+					<li><a href="?page=1">Raz</a></li>
+					<li><a href="?page=2">Dwa</a></li>
+					<li><a href="?page=3">Trzy</a></li>
+					<li><a href="?page=4">Cztery</a></li>
+					<li><a href="?page=5">Pięć</a></li>
+				</ul>
+			</nav>
+			<div class="main">
+				<article>
+					<h1>Tutaj jakiś artykuł</h1>
+					<p>(Hippopotamus amphibius), z&nbsp;greckiego ‘ιπποπόταμος (hippopotamos, hippos znaczy "koń", potamos znaczy "rzeka") – gatunek dużego, przeważnie roślinożernego ssaka, należącego do rodziny hipopotamowatych (Hippopotamidae), w&nbsp;obrębie której wyróżnia się dwa współcześnie żyjące gatunki (drugim jest dużo mniejszy hipopotam karłowaty). Hipopotam nilowy jest jedynym żyjącym przedstawicielem rodzaju Hippopotamus.
+					Zasiedlają rzeki i&nbsp;jeziora w&nbsp;Afryce na południe od Sahary do 2000 m n.p.m. Hipopotamowate to jedyna rodzina rzędu parzystokopytnych prowadząca ziemnowodny tryb życia. W&nbsp;ciągu dnia najczęściej pozostają w&nbsp;wodzie; aktywne dopiero o&nbsp;zmierzchu i&nbsp;nocą, skubią wtedy trawę na łąkach w&nbsp;pobliżu wody, zjadają także rośliny wodne. W&nbsp;poszukiwaniu pożywienia potrafią zapuszczać się do 8 km w&nbsp;głąb lądu. Przebywają w&nbsp;stadach składających się z&nbsp;dominującego samca i&nbsp;podlegających mu samic w&nbsp;liczbie od 10 do 40 osobników. Samce bronią i&nbsp;przewodzą terytorium obejmujące pewien odcinek rzeki i&nbsp;na nim gromadzą swój harem. Na lądzie hipopotamy są raczej indywidualistami i&nbsp;nie przejawiają instynktu terytorialnego. Rozmnażanie i&nbsp;poród odbywa się w&nbsp;wodzie. Samica po ośmiomiesięcznej ciąży rodzi 1 młode. Młode ssie matkę przez okres 1 roku, również pod wodą.</p>
+				</article>
+			</div>
+		</div>
 	</body>
 </html>
