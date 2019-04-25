@@ -27,7 +27,7 @@
 				text-decoration: none;
 				padding: 0.3em;
 				background-color: gold;
-				-box-sizing: border-box;
+				box-sizing: border-box;
 			}
 			nav a:hover{
 				background-color: pink;
@@ -36,6 +36,7 @@
 				margin: 0;
 				width: 20%;
 				float: left;
+				overflow: hidden;
 			}
 			.main{
 				width: 80%;
@@ -45,6 +46,47 @@
 			.container{
 				width: 60%;
 				margin: 2em auto;
+			}
+			@media only screen and (max-width: 66em){
+				.container{
+					width:90%;
+				}
+			}
+			@media only screen and (max-width: 53em){
+				nav{
+					float: none;
+					width: 100%;
+				}
+				nav a{
+					float: left;
+					width: 20%;
+					padding: 1em;
+					text-align: center;
+				}
+				.main{
+					float: none;
+					width: 100%;
+				}
+			}
+			@media only screen and (max-width: 32em){
+				.container{
+					width: 100%;
+					margin: 0;
+				}
+				article{
+					padding: 1em;
+				}
+			}
+			@media only screen and (max-width: 20em){
+				body{
+					margin: 0;
+					padding: 0;
+				}
+				nav a{
+					float: none;
+					width: auto;
+					padding: 0.3em;
+				}
 			}
 		</style>
 	</head>
