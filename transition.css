@@ -1,0 +1,13 @@
+div{
+	width: 15em;
+	height: 15em;
+	background-color: pink;
+	border: 0.1em solid darkblue;
+	box-sizing: border-box;
+	transition: all 1s ease;
+}
+div:hover{
+	background-color: purple;
+	width: 100%;
+	border-width: 2em;
+}
