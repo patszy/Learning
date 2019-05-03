@@ -18,6 +18,10 @@ aside{
 	min-height: 30em;
 	float: left;
 }
+.leftside{
+	float:left;
+	width:20%;
+}
 header{
 	display: block;
 	width: 100%;
@@ -25,19 +29,16 @@ header{
 	float: left;
 }
 img{
-	width: 20%;
-	float: left;
+	width: 100%;
 }
 h1{
 	width: 80%;
-	float: left;
 	text-align: center;
-	margin: 2em auto;
+	margin: 1em auto;
 }
 nav{
-	width: 20%;
+	width: 100%;
 	background-color: green;
-	float: left;
 }
 ul{
 	margin: 0;
@@ -58,7 +59,7 @@ nav a:hover{
 article{
 	width: 80%;
 	background-color: grey;
-	float: left;
+	float:left;
 }
 article p{
 	padding: 1em;
