@@ -4,8 +4,9 @@
 	margin: 0 auto;
 	background-color:gold;
 	max-width: 50em;
-	min-height:10em;
+	min-height: 10em;
 	padding: 1em;
+	overflow: hidden;
 }
 .main{
 	width: 80%;
@@ -14,7 +15,7 @@
 aside{
 	background-color: red;
 	width: 20%;
-	min-height: 10em;
+	min-height: 30em;
 	float: left;
 }
 header{
