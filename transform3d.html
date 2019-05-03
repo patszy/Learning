@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pl">
+	<head>
+		<meta charset="utf-8">
+		<title>CSS Transform 3D</title>
+		<style>
+			div{
+				width: 15em;
+				height: 15em;
+				box-sizing: border-box;
+			}
+			.parent{
+				border: 1px solid lightgrey;
+				margin: 3em auto;
+				perspective: 20em;
+			}
+			.panel{
+				background-color: khaki;
+				transition: all 1s ease;
+			}
+			#parent1:hover .panel{
+				transform: rotateY(180deg); 
+			}
+			#parent2 .panel{
+				transform-origin: 100% 50%;
+			}
+			#parent2:hover .panel{
+				transform: translateX(-100%) rotateY(-180deg);
+			}
+			#parent3{
+				position: relative;
+			}
+			.panel_group{
+				position: absolute;
+				transition: all 1s ease;
+				transform-style: preserve-3d;
+			}
+			.panel_group .panel{
+				position: absolute;
+				backface-visibility: hidden;
+				font-size: 7em;
+				font-weight: bold;
+				text-align: center;
+				color: white;
+				font-family: sans-serif;
+				width: 100%;
+				height: 100%;
+				padding-top: 0.5em;
+			}
+			.back{
+				background-color: skyblue;
+				transform: rotateY(180deg);
+			}
+			#parent3:hover .panel_group{
+				transform: rotateY(180deg);
+			}
+		</style>
+	</head>
+	<body>
+		<div class="parent" id="parent1"><div class="panel"></div></div>
+		<div class="parent" id="parent2"><div class="panel"></div></div>
+		<div class="parent" id="parent3">
+			<div class="panel_group">
+				<div class="panel">1</div>
+				<div class="panel back">2</div>
+			</div>
+		</div>
+	</body>
+</html>
