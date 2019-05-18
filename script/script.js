@@ -47,3 +47,40 @@ ctx.lineTo(200, 350);
 ctx.moveTo(150, 350);
 ctx.fill();
 ctx.closePath();
+//Colour
+ctx.fillStyle = '#ffffff';
+ctx.fillRect(300, 30, 20, 20);
+ctx.fillStyle = 'rgb(215, 80, 255)';
+ctx.fillRect(300, 70, 20, 20);
+ctx.fillStyle = 'rgba(255, 0, 0, 0.5)';
+ctx.fillRect(340, 30, 20, 20);
+ctx.fillStyle = 'pink';
+ctx.fillRect(340, 70, 20, 20);
+ctx.strokeStyle = '#ffffff';
+ctx.strokeRect(300, 110, 20, 20);
+
+ctx.globalAlpha = 0.5;
+ctx.fillStyle = 'black';
+ctx.fillRect(340, 110, 20, 20);
+ctx.globalAlpha = 1;
+
+ctx.lineWidth = 10;
+ctx.strokeRect(380, 30, 20, 20);
+
+ctx.lineJoin = 'round';
+ctx.strokeRect(380, 70, 20, 20);
+
+ctx.lineJoin = 'miter';
+ctx.miterLimit = 1;
+ctx.beginPath();
+ctx.moveTo(420, 30);
+ctx.lineTo(430, 70);
+ctx.lineTo(440, 30);
+ctx.stroke();
+//Gradient
+var gradient = ctx.createLinearGradient(450, 0, 500, 500);
+gradient.addColorStop(0, '#dcf255');
+gradient.addColorStop(0.32, '#0ce0ff');
+gradient.addColorStop(1, '#ff4992');
+ctx.fillStyle = gradient;
+ctx.fillRect(450, 0, 500, 500)
