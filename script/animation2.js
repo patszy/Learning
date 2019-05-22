@@ -22,7 +22,7 @@ function animationLoop(time){
 		lastTime  = time;
 		//ctx.clearRect(0, 0, canvas.width, canvas.height);
 		ctx.fillStyle = 'rgba(255, 255, 255, 0.2)';
-		ctx.fillRect(0, 0, rectangle.x, rectangle.y);
+		ctx.fillRect(0, 0, canvas.width, canvas.height);
 		ctx.fillStyle = 'black';
 		rectangle.x+=1;
 		rectangle.y+=1;
