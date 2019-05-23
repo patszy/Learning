@@ -1,21 +1,26 @@
 var canvas= document.createElement('canvas');
-canvas.width=500;
-canvas.height=500;
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
 document.body.appendChild(canvas);
 var ctx = canvas.getContext('2d');
 
 var rectangle = {
 	x:canvas.width/2,
 	y:canvas.height/2,
-	h:rand(20, 30),
-	r:rand(0, 240),
-	g:rand(0, 240),
-	b:rand(0, 240),
+	h:rand(10, 100),
+	r:rand(0, 255),
+	g:rand(0, 255),
+	b:rand(0, 255),
+	speedx:rand(-10, 10),
+	speedy:rand(-10, 10),
 }
+while(rectangle.speedx==0 && rectangle.speedy==0){
+	rectangle.speedx=rand(-10, 10);
+	rectangle.speedy=rand(-10, 10);
+}
+
 var fps = 20;
-
 var lastTime = 0;
-
 animationLoop();
 
 function animationLoop(time){
@@ -24,11 +29,11 @@ function animationLoop(time){
 	if(time-lastTime >= 1000/fps){
 		lastTime  = time;
 		//ctx.clearRect(0, 0, canvas.width, canvas.height);
-		ctx.fillStyle = 'rgba('+r+','+g+','+b+', 0.2)';
+		ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
 		ctx.fillRect(0, 0, canvas.width, canvas.height);
-		ctx.fillStyle = 'black';
-		rectangle.x+=1;
-		rectangle.y+=1;
+		ctx.fillStyle = 'rgb('+rectangle.r+','+rectangle.g+','+rectangle.b+')';
+		rectangle.x+=rectangle.speedx;
+		rectangle.y+=rectangle.speedy;
 	 	ctx.fillRect(rectangle.x-rectangle.h/2, rectangle.y-rectangle.h/2, rectangle.h, rectangle.h);	
 	 }
 }
