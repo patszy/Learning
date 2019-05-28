@@ -2,6 +2,10 @@ var canvas= document.createElement('canvas');
 
 layout();
 window.addEventListener('resize', layout, false);
+window.addEventListener('mousemove', onMove, false);
+var source_x=0.5;
+var source_y=0.5;
+var global_target_r=0.4; 
 
 document.body.appendChild(canvas);
 var ctx = canvas.getContext('2d');
@@ -25,13 +29,15 @@ function animationLoop(time){
 
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+		global_target_r=Math.min(0.4, global_target_r+0.005);
+
 		visibleRectangles.length=0;
 
 		for(i=0; i<10; i++){
 			rectanglesArray.push({
-				start_x:0.5,
-				start_y:0.5,
-				target_r:0.4,
+				start_x:source_x,
+				start_y:source_y,
+				target_r:global_target_r,
 				angle:rand(0, 360),
 				//
 				t:0,
@@ -74,6 +80,11 @@ function animationLoop(time){
 	}
 }
 
+function onMove(event){
+	source_x=event.x/canvas.width;
+	source_y=event.y/canvas.height;
+	global_target_r=Math.max(0.1, global_target_r-0.01);
+}
 function layout(event){
 	canvas.width=window.innerWidth;
 	canvas.height=window.innerHeight;
