@@ -1,5 +1,9 @@
-*, html, body{
+body{
 	margin: 0;
 	padding: 0;
 	overflow: hidden;
+}
+.onRetina{
+	transform: scale(0.5);
+	transform-origin: 0 0;
 }
