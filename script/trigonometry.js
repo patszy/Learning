@@ -7,9 +7,11 @@ var ctx = canvas.getContext('2d');
 var rectanglesArray = [];
 var visibleRectangles = [];
 
+var ease='easeInBounce';
+
 var fps = 60;
 var lastTime = 0;
-var gravity = 1;
+
 animationLoop();
 
 function animationLoop(time){
@@ -19,21 +21,24 @@ function animationLoop(time){
 	if(time-lastTime >= 1000/fps){
 		lastTime  = time;
 
-		ctx.fillStyle = 'rgba(255, 255, 255, 0.2)';
-		ctx.fillRect(0, 0, canvas.width, canvas.height);
+		ctx.clearRect(0, 0, canvas.width, canvas.height);
 
 		visibleRectangles.length=0;
 
-		for(i=0; i<15; i++){
+		for(i=0; i<10; i++){
 			rectanglesArray.push({
-				x:canvas.width/2,
-				y:canvas.height/2,
+				start_x:canvas.width/2,
+				start_y:canvas.height/2,
+				target_r:Math.round(canvas.height*0.4),
+				angle:rand(0, 360),
+				//
+				t:0,
+				d:2000,
+				//
 				h:rand(1, 10),
-				r:rand(0, 100),
-				g:rand(128, 255),
-				b:255,
-				speedx:rand(-10, 10),
-				speedy:rand(-10, 10),
+				color_r:rand(0, 100),
+				color_g:rand(128, 255),
+				color_b:rand(128, 255),
 			})
 			while(rectanglesArray[rectanglesArray.length-1].speedx==0 && rectanglesArray[rectanglesArray.length-1].speedy==0){
 				rectanglesArray[rectanglesArray.length-1].speedx=rand(-10, 10);
@@ -45,29 +50,25 @@ function animationLoop(time){
 		for(var i=0; i<rectanglesArray.length; i++){
 			var rectangle = rectanglesArray[i];
 			
-			ctx.fillStyle = 'rgb('+rectangle.r+','+rectangle.g+','+rectangle.b+')';
-			rectangle.x+=rectangle.speedx;
-			rectangle.y+=rectangle.speedy;
-			//Pseudo Gravity
-			rectangle.speedy+=gravity;
+			rectangle.t+=1000/fps;
 
-			rectangle.r = Math.min(255, rectangle.r+5);
-			rectangle.g = Math.min(255, rectangle.g+5);
-			rectangle.b = Math.min(255, rectangle.b+5);
+			ctx.fillStyle = 'rgb('+rectangle.color_r+','+rectangle.color_g+','+rectangle.color_b+')';
+
+			rectangle.r=Easing.get(ease, 0, rectangle.target_r, rectangle.t, rectangle.d);
+			rectangle.a=Easing.get(ease, rectangle.angle, rectangle.angle+180, rectangle.t, rectangle.d);
+
+			rectangle.x=Math.sin(Math.PI/180*rectangle.a)*rectangle.r+rectangle.start_x;
+			rectangle.y=Math.cos(Math.PI/180*rectangle.a)*rectangle.r+rectangle.start_y;
+
+			ctx.fillStyle = 'rgba('+rectangle.color_r+','+rectangle.color_g+','+rectangle.color_b+',1)';
 
 		 	ctx.fillRect(rectangle.x-rectangle.h/2, rectangle.y-rectangle.h/2, rectangle.h, rectangle.h);
 
-		 	if(rectangle.x+rectangle.h/2>0 && rectangle.x-rectangle.h/2<canvas.width &&
-		 	 	rectangle.y+rectangle.h/2>0 && rectangle.y-rectangle.h/2<canvas.height &&
-		 	 	(rectangle.r!=255 || rectangle.g!=255 || rectangle.b!=255)){
+		 	if(rectangle.t<rectangle.d){
 		 		visibleRectangles.push(rectangle);
 		 	}
 		}
-
 		rectanglesArray = visibleRectangles.concat();
-		/*if(rectanglesArray.length>20){
-			rectanglesArray.shift();
-		}*/
 	}
 }
 
