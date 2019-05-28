@@ -1,6 +1,8 @@
 var canvas= document.createElement('canvas');
-canvas.width=window.innerWidth;
-canvas.height=window.innerHeight;
+
+layout();
+window.addEventListener('resize', layout, false);
+
 document.body.appendChild(canvas);
 var ctx = canvas.getContext('2d');
 
@@ -27,15 +29,15 @@ function animationLoop(time){
 
 		for(i=0; i<10; i++){
 			rectanglesArray.push({
-				start_x:canvas.width/2,
-				start_y:canvas.height/2,
-				target_r:Math.round(canvas.height*0.4),
+				start_x:0.5,
+				start_y:0.5,
+				target_r:0.4,
 				angle:rand(0, 360),
 				//
 				t:0,
 				d:2000,
 				//
-				h:rand(1, 10),
+				h:0.001*rand(1,10),
 				color_r:rand(0, 100),
 				color_g:rand(128, 255),
 				color_b:rand(128, 255),
@@ -54,15 +56,15 @@ function animationLoop(time){
 
 			ctx.fillStyle = 'rgb('+rectangle.color_r+','+rectangle.color_g+','+rectangle.color_b+')';
 
-			rectangle.r=Easing.get(ease, 0, rectangle.target_r, rectangle.t, rectangle.d);
+			rectangle.r=Easing.get(ease, 0, rectangle.target_r*canvas.height, rectangle.t, rectangle.d);
 			rectangle.a=Easing.get(ease, rectangle.angle, rectangle.angle+180, rectangle.t, rectangle.d);
 
-			rectangle.x=Math.sin(Math.PI/180*rectangle.a)*rectangle.r+rectangle.start_x;
-			rectangle.y=Math.cos(Math.PI/180*rectangle.a)*rectangle.r+rectangle.start_y;
+			rectangle.x=Math.sin(Math.PI/180*rectangle.a)*rectangle.r+rectangle.start_x*canvas.width;
+			rectangle.y=Math.cos(Math.PI/180*rectangle.a)*rectangle.r+rectangle.start_y*canvas.height;
 
 			ctx.fillStyle = 'rgba('+rectangle.color_r+','+rectangle.color_g+','+rectangle.color_b+',1)';
 
-		 	ctx.fillRect(rectangle.x-rectangle.h/2, rectangle.y-rectangle.h/2, rectangle.h, rectangle.h);
+		 	ctx.fillRect(rectangle.x-(rectangle.h*canvas.width)/2, rectangle.y-(rectangle.h*canvas.height)/2, rectangle.h*canvas.width, rectangle.h*canvas.height);
 
 		 	if(rectangle.t<rectangle.d){
 		 		visibleRectangles.push(rectangle);
@@ -70,6 +72,12 @@ function animationLoop(time){
 		}
 		rectanglesArray = visibleRectangles.concat();
 	}
+}
+
+function layout(event){
+	canvas.width=window.innerWidth;
+	canvas.height=window.innerHeight;
+	console.log(canvas.width);
 }
 
 function rand(min, max){
