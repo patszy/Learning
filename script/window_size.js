@@ -2,9 +2,17 @@ var canvas= document.createElement('canvas');
 
 layout();
 window.addEventListener('resize', layout, false);
-window.addEventListener('mousemove', onMove, false);
+/*Portable Version, Lane89.
+window.addEventListener('mousemove', onMove, false);*/
+window.addEventListener('touchstart', onMove, false);
+window.addEventListener('touchmove', onMove, false);
+window.addEventListener('touchend', onMove, false);
+
 var source_x=0.5;
 var source_y=0.5;
+
+var touches=[];
+
 var global_target_r=0.4; 
 
 document.body.appendChild(canvas);
@@ -32,25 +40,23 @@ function animationLoop(time){
 		global_target_r=Math.min(0.4, global_target_r+0.005);
 
 		visibleRectangles.length=0;
-
-		for(i=0; i<10; i++){
-			rectanglesArray.push({
-				start_x:source_x,
-				start_y:source_y,
-				target_r:global_target_r,
-				angle:rand(0, 360),
-				//
-				t:0,
-				d:2000,
-				//
-				h:0.001*rand(1,10),
-				color_r:rand(0, 100),
-				color_g:rand(128, 255),
-				color_b:rand(128, 255),
-			})
-			while(rectanglesArray[rectanglesArray.length-1].speedx==0 && rectanglesArray[rectanglesArray.length-1].speedy==0){
-				rectanglesArray[rectanglesArray.length-1].speedx=rand(-10, 10);
-				rectanglesArray[rectanglesArray.length-1].speedy=rand(-10, 10);
+		if(touches.length>0){
+			for(i=0; i<10; i++){
+				var p=touches[rand(0, touches.length-1)];
+				rectanglesArray.push({
+					start_x:p.pageX/canvas.width,
+					start_y:p.pageY/canvas.height,
+					target_r:global_target_r,
+					angle:rand(0, 360),
+					//
+					t:0,
+					d:2000,
+					//
+					h:0.001*rand(1,10),
+					color_r:rand(0, 100),
+					color_g:rand(128, 255),
+					color_b:rand(128, 255),
+				})
 			}
 		}
 		//ctx.clearRect(0, 0, canvas.width, canvas.height); From earlier lesson.
@@ -81,8 +87,11 @@ function animationLoop(time){
 }
 
 function onMove(event){
+	/*Portable Version
 	source_x=event.x/canvas.width;
-	source_y=event.y/canvas.height;
+	source_y=event.y/canvas.height;*/
+	touches=event.touches;
+	event.preventDefault();
 	global_target_r=Math.max(0.1, global_target_r-0.01);
 }
 function layout(event){
