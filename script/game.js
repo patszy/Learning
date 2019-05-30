@@ -21,9 +21,27 @@ Game = {
 
 		Game.ship = new Ship();
 
+		window.addEventListener('keydown', Game.onKey, false);
+		window.addEventListener('keyup', Game.onKey, false);
+
 		Game.animationLoop();
 	},
-	layout:function(ev){
+	onKey:function(event){
+		if(event.keyCode==32 || event.keyCode==37 || event.keyCode==38 || event.keyCode==39){
+			event.preventDefault();
+			if(event.type=='keydown' && !Game['key_'+event.keyCode]){
+				Game['key_'+event.keyCode] = true;
+				if(event.keyCode==37){
+					Game.key_39 = false;
+				}else if(event.keyCode==39){
+					Game.key_37 = false;
+				}
+			}else if(event.type=='keyup'){
+				Game['key_'+event.keyCode] = false;
+			}
+		}
+	},
+	layout:function(event){
 		VAR.W = window.innerWidth;
 		VAR.H = window.innerHeight;
 		VAR.d = Math.min(VAR.W, VAR.H);
