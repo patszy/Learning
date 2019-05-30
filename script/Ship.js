@@ -9,7 +9,7 @@ function Ship(){
 	this.modX = 0;
 	this.modY = 0;
 	this.acc = 0.0004;
-	this.maxMod = 0.019;
+	this.maxMod = 0.02;
 
 	this.points = [{}, {}, {}];
 }
@@ -19,7 +19,7 @@ Ship.prototype.draw = function(){
 	}
 	if(Game.key_38){
 		this.modX = Math.max(-this.maxMod*VAR.d, Math.min(this.maxMod*VAR.d, this.modX + Math.sin(Math.PI/180*this.a)*this.acc*VAR.d));
-		this.modY = this.modY - Math.cos(Math.PI/180*this.a)*this.acc*VAR.d;
+		this.modY = Math.max(-this.maxMod*VAR.d, Math.min(this.maxMod*VAR.d, this.modY - Math.cos(Math.PI/180*this.a)*this.acc*VAR.d));
 	}else{
 		this.modX = this.modX*0.98;
 		this.modX = Math.abs(this.modX)<0.0001 ? 0 : this.modX;
@@ -68,5 +68,15 @@ Ship.prototype.draw = function(){
 		Game.ctx.lineWidth = 3;
 	}else if(Game.key_38 && !this.draw_thrust){
 		this.draw_thrust=true;
+	}
+
+	if(this.points[0].x<0 && this.points[1].x<0 && this.points[2].x<0){
+		this.x+=VAR.W - Math.min(this.points[0].x, this.points[1].x, this.points[2].x)*0.9;
+	}else if(this.points[0].x>VAR.W && this.points[1].x>VAR.W && this.points[2].x>VAR.W){
+		this.x-=VAR.W - (VAR.W-Math.max(this.points[0].x, this.points[1].x, this.points[2].x))*0.9;
+	}else if(this.points[0].y<0 && this.points[1].y<0 && this.points[2].y<0){
+		this.y+=VAR.H - Math.min(this.points[0].y, this.points[1].y, this.points[2].y)*0.9;
+	}else if(this.points[0].y>VAR.H && this.points[1].y>VAR.H && this.points[2].y>VAR.H){
+		this.y-=VAR.H - (VAR.H-Math.max(this.points[0].y, this.points[1].y, this.points[2].y))*0.9;
 	}
 }
