@@ -49,11 +49,17 @@ Rock.prototype.draw = function(){
 	}
 
 	Game.ctx.beginPath();
+	Game.ctx.lineWidth = 10;
+	Game.ctx.strokeStyle = "darkgray";
+	Game.ctx.fillStyle = "gray";
 	for(var i=0; i<this.points.length; i++){
 		Game.ctx[i===0 ? 'moveTo' : 'lineTo'](this.points[i].x*VAR.d+this.x, this.points[i].y*VAR.d+this.y);
 	}
 	Game.ctx.closePath();
-	Game.ctx.stroke()
+	Game.ctx.stroke();
+	Game.ctx.fill();
+	Game.ctx.fillStyle = "black";
+	Game.ctx.strokeStyle = "white";
 };
 
 Rock.draw = function(){
