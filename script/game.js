@@ -19,6 +19,10 @@ Game = {
 		window.addEventListener('resize', Game.layout, false);
 		document.body.appendChild(Game.canvas);
 
+		for(var i=0; i<4; i++){
+			new Rock();
+		}
+
 		Game.ship = new Ship();
 
 		window.addEventListener('keydown', Game.onKey, false);
@@ -51,10 +55,10 @@ Game = {
 		Game.canvas.width = VAR.W;
 		Game.canvas.height = VAR.H;
 		
-		Game.ctx.fillStyle = 'white'
-		Game.ctx.strokeStyle = 'white'
-		Game.ctx.lineWidth = 3
-		Game.ctx.lineJoin = 'round'
+		Game.ctx.fillStyle = 'white';
+		Game.ctx.strokeStyle = 'white';
+		Game.ctx.lineWidth = 3;
+		Game.ctx.lineJoin = 'round';
 	},
 	animationLoop:function(time){
 		requestAnimationFrame( Game.animationLoop );
@@ -64,6 +68,7 @@ Game = {
 			Game.ctx.clearRect(0,0,VAR.W, VAR.H);
 			Game.ship.draw();
 			Bullet.draw();
+			Rock.draw();
 		}
 	}
 }

@@ -34,7 +34,8 @@ Bullet.draw = function(){
 				Bullet.all[i].x+=VAR.W;
 			}else if(Bullet.all[i].x>VAR.W) {
 				Bullet.all[i].x-=VAR.W;
-			}else if(Bullet.all[i].y<0) {
+			}
+			if(Bullet.all[i].y<0) {
 				Bullet.all[i].y+=VAR.H;
 			}else if(Bullet.all[i].y>VAR.H) {
 				Bullet.all[i].y-=VAR.H;
