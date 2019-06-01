@@ -50,7 +50,7 @@ Bullet.draw = function(){
 			}
 
 			Game.ctx.beginPath();
-			Game.ctx.fillStyle = 'skyblue';
+			Game.ctx.fillStyle = 'lime';
 			Game.ctx.arc(Bullet.all[i].x, Bullet.all[i].y, 3, 0, Math.PI/180*360);
 			Game.ctx.closePath();
 			Game.ctx.fill();

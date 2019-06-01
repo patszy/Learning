@@ -33,6 +33,10 @@ Game = {
 
 		Game.animationLoop();
 	},
+	stop:function(){
+		window.removeEventListener('keydown', Game.onKey, false);
+		window.removeEventListener('keyup', Game.onKey, false);
+	},
 	onKey:function(event){
 		if(event.keyCode==32 || event.keyCode==37 || event.keyCode==38 || event.keyCode==39){
 			event.preventDefault();
