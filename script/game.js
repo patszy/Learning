@@ -13,6 +13,7 @@ VAR = {
 }
 Game = {
 	init:function(){
+		Sounds.init();
 		Game.canvas = document.createElement('canvas');
 		Game.hit_canvas = document.createElement('canvas');
 		Game.ctx = Game.canvas.getContext('2d');
