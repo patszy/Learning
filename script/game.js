@@ -17,11 +17,11 @@ Game = {
 		Game.hit_canvas = document.createElement('canvas');
 		Game.ctx = Game.canvas.getContext('2d');
 		Game.hit_ctx = Game.hit_canvas.getContext('2d');
+
 		Game.layout();
 		window.addEventListener('resize', Game.layout, false);
 		document.body.appendChild(Game.canvas);
-		document.body.appendChild(Game.hit_canvas);
-
+		
 		for(var i=0; i<3; i++){
 			new Rock();
 		}
@@ -58,14 +58,14 @@ Game = {
 		Game.canvas.width = VAR.W;
 		Game.canvas.height = VAR.H;
 
-		Game.hit_canvas.width = VAR.W;
-		Game.hit_canvas.height = VAR.H;
-		Game.hit_ctx.fillStyle
-
 		Game.ctx.fillStyle = 'black';
 		Game.ctx.strokeStyle = 'white';
 		Game.ctx.lineWidth = 3;
 		Game.ctx.lineJoin = 'round';
+
+		Game.hit_canvas.width = VAR.W;
+		Game.hit_canvas.height = VAR.H;
+		Game.hit_ctx.fillStyle = 'red';
 	},
 	animationLoop:function(time){
 		requestAnimationFrame( Game.animationLoop );
@@ -73,6 +73,7 @@ Game = {
 			VAR.lastTime = time;
 			
 			Game.ctx.clearRect(0,0,VAR.W, VAR.H);
+			Game.hit_ctx.clearRect(0,0,VAR.W, VAR.H);
 			Game.ship.draw();
 			Bullet.draw();
 			Rock.draw();

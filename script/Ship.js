@@ -8,11 +8,11 @@ function Ship(){
 
 	this.modX = 0;
 	this.modY = 0;
-	this.acc = 0.0004;
+	this.acc = 0.0002;
 	this.maxMod = 0.02;
 
 	this.points = [{}, {}, {}];
-}
+};
 Ship.prototype.draw = function(){
 	if(Game.key_37 || Game.key_39){
 		this.a = this.a + 10*(Game.key_37 ? -1 : 1);
@@ -30,8 +30,9 @@ Ship.prototype.draw = function(){
 	this.x+=this.modX;
 	this.y+=this.modY;
 
+	//Ship
 	Game.ctx.beginPath();
-	Game.ctx.strokeStyle = "gray";
+	Game.ctx.strokeStyle = 'gray';
 	Game.ctx.lineWidth = 5;
 	for(var i=0; i<3; i++){
 		this.tmp_a = i===0 ? this.a : (this.a+180+(i==1 ? this.rear_a : -this.rear_a));
@@ -45,11 +46,12 @@ Ship.prototype.draw = function(){
 	Game.ctx.stroke();
 	Game.ctx.fill();
 
+	//
 	if(Game.key_38){
 		Game.ctx.beginPath();
-		Game.ctx.strokeStyle = "red";
+		Game.ctx.strokeStyle = 'red';
 		Game.ctx.lineWidth = 7;
-		Game.ctx.fillStyle = "gold";
+		Game.ctx.fillStyle = 'gold';
 		for (i = 0; i < 3; i++) {
 			this.tmp_a = i!=1 ? this.a+180+(i===0 ? -this.rear_a+30 : this.rear_a-30) : this.a+180;
 			this.tmp_r = i==1 ? this.r : this.r*0.7;
@@ -61,8 +63,8 @@ Ship.prototype.draw = function(){
 		Game.ctx.closePath();
 		Game.ctx.stroke();
 		Game.ctx.fill();
-		Game.ctx.fillStyle = "black";
-		Game.ctx.strokeStyle = "white";
+		Game.ctx.fillStyle = 'black';
+		Game.ctx.strokeStyle = 'white';
 		Game.ctx.lineWidth = 3;
 	}
 	if(this.points[0].x<0 && this.points[1].x<0 && this.points[2].x<0){
@@ -75,4 +77,4 @@ Ship.prototype.draw = function(){
 	}else if(this.points[0].y>VAR.H && this.points[1].y>VAR.H && this.points[2].y>VAR.H){
 		this.y-=VAR.H - (VAR.H-Math.max(this.points[0].y, this.points[1].y, this.points[2].y))*0.9;
 	}
-}
+};

@@ -21,10 +21,18 @@ function Bullet(){
 		this.modX = Math.sin(Math.PI/180*this.a)*Bullet.speed*VAR.d;
 		this.modY = -Math.cos(Math.PI/180*this.a)*Bullet.speed*VAR.d;
 	}
-}
+};
 
 Bullet.draw = function(){
 	for(var i in Bullet.all){
+		for(var r in Rock.all){
+			if(Rock.all[r].hitTest(Bullet.all[i].x, Bullet.all[i].y)){
+				Bullet.all[i].life+=Bullet.life
+				Rock.all[r].remove()
+				break;
+			}
+		}
+
 		if(Bullet.all[i].life<Bullet.life){
 			Bullet.all[i].life++;
 			Bullet.all[i].x += Bullet.all[i].modX;
@@ -42,9 +50,11 @@ Bullet.draw = function(){
 			}
 
 			Game.ctx.beginPath();
+			Game.ctx.fillStyle = 'skyblue';
 			Game.ctx.arc(Bullet.all[i].x, Bullet.all[i].y, 3, 0, Math.PI/180*360);
 			Game.ctx.closePath();
 			Game.ctx.fill();
+			Game.ctx.fillStyle = 'black';
 		}else{
 			Bullet.active_count--;
 			delete Bullet.all[i];
