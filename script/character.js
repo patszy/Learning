@@ -2,7 +2,7 @@ Character.count = 0;
 function Character(inheritance){
 	Character.count++;
 	this.id = 'ch_'+Character.count;
-	if(!inheritance)	Game.toDraw[this.id] = this;
+	if(!inheritance) Game.toDraw[this.id] = this;
 
 	this.fW = 21;
 	this.fH = 24;
@@ -56,3 +56,20 @@ function Hero(){
 }
 Hero.prototype = new Character(true);
 Hero.prototype.constructor = Hero;
+function Enemy(){
+	Character.call(this);
+	this.state = 'right_go';
+	this.states = {
+		'down':{sx:0, sy:72, f:[0]},
+		'down_go':{sx:0, sy:72, f:[1, 0, 2, 0]},
+		'left':{sx:63, sy:24, f:[0]},
+		'left_go':{sx:63, sy:24, f:[1, 0, 2, 0]},
+		'up':{sx:63, sy:72, f:[0]},
+		'up_go':{sx:63, sy:72, f:[1, 0, 2, 0]},
+		'right':{sx:63, sy:24, f:[0], flip:true},
+		'right_go':{sx:63, sy:24, f:[1, 0, 2, 0], flip:true},
+		'ko':{sx:0, sy:96, f:[0, 1, 2, 3, 4 , 5]}
+	};
+}
+Enemy.prototype = new Character(true);
+Enemy.prototype.constructor = Hero;

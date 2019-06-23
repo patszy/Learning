@@ -23,7 +23,9 @@ Game = {
 		document.body.appendChild(Game.canvas);
 
 		Game.toDraw = {};
-		Game.hero = new Hero();
+		//Game.hero = new Hero();
+		Game.enemy = new Enemy();
+
 		Game.animationLoop();
 	},
 	layout:function(ev){
