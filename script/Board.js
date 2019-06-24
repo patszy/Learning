@@ -44,12 +44,24 @@ Board.elements = {
 	'floor':{sx:174, sy:16, type:'empty'},
 	'W':{sx:190, sy:16, type:'solid'},
 	'X':{sx:206, sy:16, type:'solid'},
-	'box':{sx:126, sy:16, type:'soft'},
+	'box':{sx:126, sy:0, type:'soft'},
 };
 function Board(){
 	this.fW = 16;
 	this.fH = 16;
-	this.b = this.parse(Board.templates[VAR.rand(0, Board.templates.length-1)]);
+	this.parse(Board.templates[VAR.rand(0, Board.templates.length-1)]);
+	for(var i=0; i<20; i++){
+		this.addCrate();
+	}
+};
+Board.prototype.getEmptySpace = function(){
+	return this.emptySpaces.length>0 ? this.emptySpaces.shift() : null;
+};
+Board.prototype.addCrate = function(){
+	var position = this.getEmptySpace();
+	if(position){
+		this.b[position.y][position.x] = Board.elements.box;
+	}
 };
 Board.prototype.draw = function(){
 	for(var i=0; i<this.b.length; i++){
@@ -69,12 +81,16 @@ Board.prototype.draw = function(){
 	}
 };
 Board.prototype.parse = function(array){
-	var new_array = [];
+	this.emptySpaces = [];
+	this.b = [];
 	for(var i=0; i<array.length; i++){
-		new_array.push([]);
+		this.b.push([]);
 		for(var j=0; j<array[i].length; j++){
-			new_array[i].push(Board.elements[array[i].charAt(j)==' ' ? 'floor' : array[i].charAt(j)]);
+			this.b[i].push(Board.elements[array[i].charAt(j)==' ' ? 'floor' : array[i].charAt(j)]);
+			if(this.b[i][j].type=='empty' && !(i==1 && j==1) && !(i==2 && j==1) && !(i==1 && j==2)){
+				this.emptySpaces.push( {x:j, y:i});
+			}
 		}
 	}
-	return new_array;
+	this.emptySpaces = VAR.shuffle(this.emptySpaces);
 };

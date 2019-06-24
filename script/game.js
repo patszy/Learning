@@ -7,10 +7,23 @@ VAR = {
 	fps:15,
 	W:0,
 	H:0,
-	scale:4,
+	scale:3,
 	lastTime:0,
 	rand:function(min,max){
 		return Math.floor(Math.random()*(max-min+1))+min;
+	},
+	shuffle:function(array){
+		var counter=array.length;
+		var tmp;
+		var index;
+		while(counter>0){
+			counter--;
+			index = Math.floor(Math.random()*counter);
+			tmp = array[counter];
+			array[counter] = array[index];
+			array[index] = tmp;
+		}
+		return array;
 	}
 };
 
