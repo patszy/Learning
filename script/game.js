@@ -7,7 +7,7 @@ VAR = {
 	fps:15,
 	W:0,
 	H:0,
-	scale:3,
+	scale:4,
 	lastTime:0,
 	rand:function(min,max){
 		return Math.floor(Math.random()*(max-min+1))+min;
@@ -24,7 +24,8 @@ Game = {
 
 		Game.toDraw = {};
 		//Game.hero = new Hero();
-		Game.enemy = new Enemy();
+		//Game.enemy = new Enemy();
+		Game.board = new Board();
 
 		Game.animationLoop();
 	},
@@ -42,6 +43,9 @@ Game = {
 		if(time-VAR.lastTime>=1000/VAR.fps){
 			VAR.lastTime = time;
 			Game.ctx.clearRect(0,0,VAR.W, VAR.H);	
+
+			Game.board.draw();
+
 			for(var o in Game.toDraw){
 				Game.toDraw[o].draw();
 			}
