@@ -6,9 +6,8 @@ function Character(inheritance){
 
 	this.fW = 21;
 	this.fH = 24;
-	//this.start_x = 0;
-	//this.start_y = 0;
-	this.frames = [1, 0, 2, 0];
+	this.mod_x = -2;
+	this.mod_y = -8;
 	this.current_f = 0;
 	this.f_max_delay = 2;
 	this.change_f_delay = 0;
@@ -24,8 +23,8 @@ Character.prototype.draw = function(){
 		this.states[this.state].sy,
 		this.fW,
 		this.fH,
-		this.states[this.state].flip ? -this.fW*VAR.scale : 0,
-		0,
+		this.states[this.state].flip ? (-this.fW-this.mod_x-this.x)*VAR.scale : (this.x+this.mod_x)*VAR.scale,
+		(this.y+this.mod_y)*VAR.scale,
 		this.fW*VAR.scale,
 		this.fH*VAR.scale
 	);
@@ -41,7 +40,7 @@ Character.prototype.draw = function(){
 };
 function Hero(){
 	Character.call(this);
-	this.state = 'right_go';
+	this.state = 'down';
 	this.states = {
 		'down':{sx:0, sy:0, f:[0]},
 		'down_go':{sx:0, sy:0, f:[1, 0, 2, 0]},
@@ -53,6 +52,8 @@ function Hero(){
 		'right_go':{sx:63, sy:0, f:[1, 0, 2, 0], flip:true},
 		'ko':{sx:0, sy:48, f:[0, 1, 0, 1, 0, 1, 2, 3, 4]}
 	};
+	this.x = Game.board.fW;
+	this.y = Game.board.fH;
 }
 Hero.prototype = new Character(true);
 Hero.prototype.constructor = Hero;

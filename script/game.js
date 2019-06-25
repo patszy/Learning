@@ -31,22 +31,29 @@ Game = {
 	init:function(){
 		Game.canvas = document.createElement('canvas');
 		Game.ctx = Game.canvas.getContext('2d');
+		Game.board = new Board();
 		Game.layout();
 		window.addEventListener('resize', Game.layout, false);
 		document.body.appendChild(Game.canvas);
 
 		Game.toDraw = {};
-		//Game.hero = new Hero();
+		Game.hero = new Hero();
 		//Game.enemy = new Enemy();
-		Game.board = new Board();
+		
 
 		Game.animationLoop();
 	},
 	layout:function(ev){
 		VAR.W = window.innerWidth;
 		VAR.H = window.innerHeight;
-		Game.canvas.width = VAR.W;
-		Game.canvas.height = VAR.H;
+		VAR.scale = Math.max(1, Math.min(
+			Math.floor(VAR.W/(Game.board.fW*Game.board.b[0].length)),
+			Math.floor(VAR.H/(Game.board.fH*Game.board.b.length)),
+		))
+		Game.canvas.width = Math.round(VAR.scale*Game.board.fW*Game.board.b[0].length);
+		Game.canvas.height = Math.round(VAR.scale*Game.board.fH*Game.board.b.length);
+
+		Game.canvas.style[Modernizr.prefixed('transform')] = 'translate('+Math.round((VAR.W-Game.canvas.width)/2)+'px,'+Math.round((VAR.H-Game.canvas.height)/2)+'px)';
 
 		Game.ctx.imageSmoothingEnabled = false;
 
