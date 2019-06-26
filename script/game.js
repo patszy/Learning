@@ -38,9 +38,16 @@ Game = {
 
 		Game.toDraw = {};
 		Game.hero = new Hero();
+
+		var tmp_empty;
+		for(var i=0; i<5; i++){
+			tmp_empty = Game.board.getEmptySpace();
+			new Enemy(tmp_empty.x*Game.board.fW, tmp_empty.y*Game.board.fH);
+		}
+		
 		window.addEventListener('keydown', Game.onKey, false);
 		window.addEventListener('keyup', Game.onKey, false);
-		//Game.enemy = new Enemy();
+		
 		
 
 		Game.animationLoop();
