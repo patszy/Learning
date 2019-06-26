@@ -13,16 +13,64 @@ function Character(inheritance){
 	this.f_max_delay = 2;
 	this.change_f_delay = 0;
 }
-Character.prototype.draw = function(){
-	if(this.state=='down_go'){
-		this.y+=this.speed;
-	}else if(this.state=='right_go'){
-		this.x+=this.speed;
-	}else if(this.state=='up_go'){
-		this.y-=this.speed;
-	}else if(this.state=='left_go'){
-		this.x-=this.speed;
+Character.prototype.rowAndColumn = function(){
+	this.row = Math.round(this.y/Game.board.fH);
+	this.column = Math.round(this.x/Game.board.fW);
+	if(this.state.slice(-2)=='go'){
+		if(this.state=='left_go' || this.state=='right_go'){
+			this.next_row = this.row;
+			this.next_column = this.state=='left_go' ? Math.floor(this.x/Game.board.fW) : Math.ceil(this.x/Game.board.fW);
+		}else{
+			this.next_column = this.column;
+			this.next_row = this.state=='up_go' ? Math.floor(this.y/Game.board.fH) : Math.ceil(this.y/Game.board.fH);
+		}
+		if(!(this.row==this.next_row && this.column == this.next_column) && Game.board.b[this.next_row][this.next_column].type!='empty'){
+			this.state=this.state.slice(0, this.state.indexOf('_go'));
+			this.current_f = 0;
+
+			if(this.row!=this.next_row){
+				this.y = this.row*Game.board.fH;
+			}else{
+				this.x = this.column*Game.board.fW;
+			}
+		}else{
+			if(this.row!=this.next_row){
+				this.x = this.column*Game.board.fW;
+			}else if(this.column!=this.next_column){
+				this.y = this.row*Game.board.fH;
+			}
+		}
+	}else{
+		this.next_row = this.row;
+		this.next_column = this.column;
 	}
+}
+Character.prototype.draw = function(){
+	if(this.state.slice(-2)=='go'){
+		if(this.state=='down_go'){
+			this.y+=this.speed;
+		}else if(this.state=='right_go'){
+			this.x+=this.speed;
+		}else if(this.state=='up_go'){
+			this.y-=this.speed;
+		}else if(this.state=='left_go'){
+			this.x-=this.speed;
+		}
+		this.rowAndColumn();
+	}
+
+	Game.ctx.fillRect(
+		this.column*Game.board.fW*VAR.scale,
+		this.row*Game.board.fH*VAR.scale,
+		Game.board.fW*VAR.scale,
+		Game.board.fH*VAR.scale
+	);
+	Game.ctx.fillRect(
+		this.next_column*Game.board.fW*VAR.scale,
+		this.next_row*Game.board.fH*VAR.scale,
+		Game.board.fW*VAR.scale,
+		Game.board.fH*VAR.scale
+	);
 
 	if(this.states[this.state].flip){
 		Game.ctx.save();
@@ -69,7 +117,7 @@ function Hero(){
 Hero.prototype = new Character(true);
 Hero.prototype.constructor = Hero;
 Hero.prototype.updateState = function(){
-	this.tmp_state = null;
+	this.tmp_state = this.state;
 	if(Game.key_37){
 		this.tmp_state = 'left_go';
 	}else if(Game.key_38){
