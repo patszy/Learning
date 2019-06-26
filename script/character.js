@@ -7,12 +7,23 @@ function Character(inheritance){
 	this.fW = 21;
 	this.fH = 24;
 	this.mod_x = -2;
-	this.mod_y = -8;
+	this.mod_y = -9;
+	this.speed = 2;
 	this.current_f = 0;
 	this.f_max_delay = 2;
 	this.change_f_delay = 0;
 }
 Character.prototype.draw = function(){
+	if(this.state=='down_go'){
+		this.y+=this.speed;
+	}else if(this.state=='right_go'){
+		this.x+=this.speed;
+	}else if(this.state=='up_go'){
+		this.y-=this.speed;
+	}else if(this.state=='left_go'){
+		this.x-=this.speed;
+	}
+
 	if(this.states[this.state].flip){
 		Game.ctx.save();
 		Game.ctx.scale(-1, 1);
@@ -57,6 +68,24 @@ function Hero(){
 }
 Hero.prototype = new Character(true);
 Hero.prototype.constructor = Hero;
+Hero.prototype.updateState = function(){
+	this.tmp_state = null;
+	if(Game.key_37){
+		this.tmp_state = 'left_go';
+	}else if(Game.key_38){
+		this.tmp_state = 'up_go';
+	}else if(Game.key_39){
+		this.tmp_state = 'right_go';
+	}else if(Game.key_40){
+		this.tmp_state = 'down_go';
+	}else if(this.state.slice(-2)=='go'){
+		this.tmp_state = this.state.slice(0, this.state.indexOf('_go'));
+	}
+	if(this.tmp_state!=this.state){
+		this.current_f = 0;
+		this.state = this.tmp_state;
+	}
+}
 function Enemy(){
 	Character.call(this);
 	this.state = 'right_go';

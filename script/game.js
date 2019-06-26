@@ -38,10 +38,31 @@ Game = {
 
 		Game.toDraw = {};
 		Game.hero = new Hero();
+		window.addEventListener('keydown', Game.onKey, false);
+		window.addEventListener('keyup', Game.onKey, false);
 		//Game.enemy = new Enemy();
 		
 
 		Game.animationLoop();
+	},
+	onKey:function(event){
+		if((event.keyCode>=37 && event.keyCode<=40) || event.keyCode==32){
+			event.preventDefault();
+			if(event.type=='keydown' && !Game['key_'+event.keyCode]){
+				Game['key_'+event.keyCode] = true;
+				if(event.keyCode>=37 && event.keyCode<=40){
+					for(var i=37; i<=40; i++){
+						if(i!=event.keyCode){
+							Game['key_'+i] = false;
+						}
+					}
+				}
+				Game.hero.updateState();
+			}else if(event.type=='keyup'){
+				Game['key_'+event.keyCode] = false;
+				Game.hero.updateState();
+			}
+		}
 	},
 	layout:function(ev){
 		VAR.W = window.innerWidth;
