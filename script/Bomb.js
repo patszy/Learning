@@ -13,7 +13,7 @@ Bomb.elements = {
 	'right_bum_end':  {sx:126, sy:32, f:[0,0,1,1,2,2,3,3,2,2,1,1,0,0], flip:true}
 };
 function Bomb(column,row, bum_type){
-	if((Bomb.max_count>Bomb.count && Game.board.b[row][column].sub_type!='bomb') || (bum_type && (!Game.board.b[row][column].bum_type || Game.board.b[row][column].bum_type.slice(-3)=='end'))){
+	if((Bomb.max_count>Bomb.count && Game.board.b[row][column].sub_type!='bomb' && !bum_type) || (bum_type && Game.board.b[row][column].sub_type=='board' && (!Game.board.b[row][column].bum_type || Game.board.b[row][column].bum_type.slice(-3)=='end'))){
 		if(!bum_type) Bomb.count++;
 		this.sx = Board.elements.floor.sx;
 		this.sy = Board.elements.floor.sy;
@@ -88,10 +88,11 @@ Bomb.prototype.draw = function() {
 			for (var j=0; j<this.range; j++) {
 				this[this.axis] = this[this.axis]+(this.grow ? 1 : -1);
 				if(Game.board.b[this.tmp_row][this.tmp_column].type!='solid'){
-					this.tmp_crate = Game.board.b[this.tmp_row][this.tmp_column].type=='soft';
-					new Bomb(this.tmp_column, this.tmp_row, this.tmp_bum_type+(j==this.range-1 ? '_end' : ''));
-					if(this.tmp_crate){
+					if(Game.board.b[this.tmp_row][this.tmp_column].ko_obj){
+						new window[Game.board.b[this.tmp_row][this.tmp_column].ko_obj](this.tmp_column, this.tmp_row);
 						break;
+					}else{
+						new Bomb(this.tmp_column, this.tmp_row, this.tmp_bum_type+(j==this.range-1 ? '_end' : ''));
 					}
 				}else if(Game.board.b[this.tmp_row][this.tmp_column].sub_type=='bomb' && !Game.board.b[this.tmp_row][this.tmp_column].bum_type){
 					Game.board.b[this.tmp_row][this.tmp_column].timer = 0;

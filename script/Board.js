@@ -10,60 +10,46 @@ Board.templates = [
 		'W             W',
 		'W X X X X X X W',
 		'W             W',
-		'WWWWWWWWWWWWWWW',
+		'WWWWWWWWWWWWWWW'
 	],
 	[
 		'WWWWWWWWWWWWWWW',
 		'W             W',
-		'W X XXX XXX X W',
+		'W X X XXX X X W',
 		'W             W',
 		'W X X X X X X W',
-		'W X         X W',
+		'W X   X X   X W',
 		'W X X X X X X W',
 		'W             W',
-		'W X XXX XXX X W',
+		'W X X XXX X X W',
 		'W             W',
-		'WWWWWWWWWWWWWWW',
-	],
-	[
-		'WWWWWWWWWWWWWWW',
-		'W             W',
-		'W XXXXX XXX X W',
-		'W           X W',
-		'W X X X X X X W',
-		'W XXX       X W',
-		'W X XXX X X X W',
-		'W             W',
-		'W XXXXX XXX X W',
-		'W    X        W',
-		'WWWWWWWWWWWWWWW',
+		'WWWWWWWWWWWWWWW'
 	]
-]
-
+];
 Board.elements = {
-	'floor':{sx:174, sy:16, type:'empty'},
-	'W':{sx:190, sy:16, type:'solid'},
-	'X':{sx:206, sy:16, type:'solid'},
-	'box':{sx:126, sy:0, type:'soft'},
+	'floor':{sx:174, sy:16, type:'empty', sub_type:'board'},
+	'W':{sx:190, sy:16, type:'solid', sub_type:'board'},
+	'X':{sx:206, sy:16, type:'solid', sub_type:'board'},
+	'box':{sx:126, sy:0, type:'soft', sub_type:'board', ko_obj:'Crate'}
 };
 function Board(){
-	this.fW = 16;
-	this.fH = 16;
-	this.parse(Board.templates[VAR.rand(0, Board.templates.length-1)]);
-	for(var i=0; i<20; i++){
+	this.parse(Board.templates[VAR.rand(0,Board.templates.length-1)]);
+	for(var i=0; i<30; i++){
 		this.addCrate();
 	}
-};
+	this.fW = 16;
+	this.fH = 16;
+}
+Board.prototype.addCrate = function(){
+	var pos = this.getEmptySpace();
+	if(pos){
+		this.b[pos.y][pos.x] = Board.elements.box;
+	}
+}
 Board.prototype.getEmptySpace = function(){
 	return this.emptySpaces.length>0 ? this.emptySpaces.shift() : null;
-};
-Board.prototype.addCrate = function(){
-	var position = this.getEmptySpace();
-	if(position){
-		this.b[position.y][position.x] = Board.elements.box;
-	}
-};
-Board.prototype.draw = function(){
+}
+Board.prototype.draw = function() {
 	for(var i=0; i<this.b.length; i++){
 		for(var j=0; j<this.b[i].length; j++){
 			Game.ctx.drawImage(
@@ -75,25 +61,27 @@ Board.prototype.draw = function(){
 				j*this.fW*VAR.scale,
 				i*this.fH*VAR.scale,
 				this.fW*VAR.scale,
-				this.fW*VAR.scale
+				this.fH*VAR.scale
 			);
-			if(this.b[i][j].sub_type=='bomb'){
+			if(this.b[i][j].sub_type != 'board' ){
 				this.b[i][j].draw();
 			}
 		}
 	}
 };
-Board.prototype.parse = function(array){
-	this.emptySpaces = [];
+Board.prototype.parse = function(arr){
 	this.b = [];
-	for(var i=0; i<array.length; i++){
+	this.emptySpaces = [];
+	for(var i=0; i<arr.length; i++){
 		this.b.push([]);
-		for(var j=0; j<array[i].length; j++){
-			this.b[i].push(Board.elements[array[i].charAt(j)==' ' ? 'floor' : array[i].charAt(j)]);
+		for(var j=0; j<arr[i].length; j++){
+			this.b[i].push(Board.elements[arr[i].charAt(j)==' ' ? 'floor' : arr[i].charAt(j)]);
 			if(this.b[i][j].type=='empty' && !(i==1 && j==1) && !(i==2 && j==1) && !(i==1 && j==2)){
-				this.emptySpaces.push( {x:j, y:i});
+				this.emptySpaces.push({x:j, y:i});
 			}
 		}
 	}
-	this.emptySpaces = VAR.shuffle(this.emptySpaces);
-};
+	VAR.shuffle(this.emptySpaces);
+}
+
+
