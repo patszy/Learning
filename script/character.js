@@ -8,7 +8,7 @@ function Character(inheritance){
 	this.fH = 24;
 	this.mod_x = -2;
 	this.mod_y = -9;
-	this.speed = 2;
+	this.speed = 3;
 	this.current_f = 0;
 	this.f_max_delay = 2;
 	this.change_f_delay = 0;
@@ -59,6 +59,9 @@ Character.prototype.draw = function(){
 		this.rowAndColumn();
 	}
 
+	if(Game.board.b[this.row][this.column].sub_type=='bomb' && Game.board.b[this.row][this.column].bum_type){
+		this.setKo();
+	}
 	if(this.states[this.state].flip){
 		Game.ctx.save();
 		Game.ctx.scale(-1, 1);
@@ -81,8 +84,18 @@ Character.prototype.draw = function(){
 		this.change_f_delay++;
 	}else{
 		this.change_f_delay = 0;
-		this.current_f = this.current_f+1>=this.states[this.state].f.length ? 0 : this.current_f+1;
+		if(this.state=='ko' && this.current_f==this.states[this.state].f.length-1){
+			this.afterKo();
+		}else{
+			this.current_f = this.current_f+1>=this.states[this.state].f.length ? 0 : this.current_f+1;
+		}
 	}
+};
+Character.prototype.setKo = function(){
+	this.state = 'ko';
+};
+Character.prototype.afterKo = function(){
+	delete Game.toDraw[this.id];
 };
 function Hero(){
 	Character.call(this);
@@ -104,6 +117,7 @@ function Hero(){
 }
 Hero.prototype = new Character(true);
 Hero.prototype.constructor = Hero;
+Hero.prototype.parent = Character.prototype;
 Hero.prototype.updateState = function(){
 	this.tmp_state = this.state;
 	if(Game.key_37){
@@ -121,7 +135,18 @@ Hero.prototype.updateState = function(){
 		this.current_f = 0;
 		this.state = this.tmp_state;
 	}
-}
+};
+Hero.prototype.setKo = function(){
+	this.parent.setKo.call(this);
+	Game.stop();
+};
+Hero.prototype.afterKo = function(){
+	if(!Game.is_over){
+		Game.is_over = true;
+		alert('Game Over');
+	}
+};
+
 Enemy.all = {};
 function Enemy(x, y){
 	Character.call(this);
@@ -183,3 +208,16 @@ Enemy.prototype.rowAndColumn = function(){
 		this.setDirection();
 	}
 };
+Enemy.prototype.afterKo = function(){
+	this.parent.afterKo.call(this);
+	delete Enemy.all[this.id];
+	var some_enemy = false;
+	for(var e in Enemy.all){
+		some_enemy = true;
+		break;
+	}
+	if(!some_enemy){
+		alert('Success');
+	}
+
+}

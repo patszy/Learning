@@ -48,9 +48,11 @@ Game = {
 		window.addEventListener('keydown', Game.onKey, false);
 		window.addEventListener('keyup', Game.onKey, false);
 		
-		
-
 		Game.animationLoop();
+	},
+	stop:function(){
+		window.removeEventListener('keydown', Game.onKey);
+		window.removeEventListener('keyup', Game.onKey);
 	},
 	onKey:function(event){
 		if((event.keyCode>=37 && event.keyCode<=40) || event.keyCode==32){
