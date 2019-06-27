@@ -77,6 +77,9 @@ Board.prototype.draw = function(){
 				this.fW*VAR.scale,
 				this.fW*VAR.scale
 			);
+			if(this.b[i][j].sub_type=='bomb'){
+				this.b[i][j].draw();
+			}
 		}
 	}
 };

@@ -63,6 +63,9 @@ Game = {
 							Game['key_'+i] = false;
 						}
 					}
+					Game.hero.updateState();
+				}else{
+					new Bomb(Game.hero.column, Game.hero.row);
 				}
 				Game.hero.updateState();
 			}else if(event.type=='keyup'){
