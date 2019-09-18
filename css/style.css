@@ -33,11 +33,6 @@ body{
 	max-width: 1000px;
 	align-items: center;
 }
-@media only screen and (min-width: 800px) {
-	.container{
-	grid-template-columns: repeat(3, 1fr);
-   }
- }
 .box{
 	min-height: 500px;
 	border: 5px solid white;
@@ -50,10 +45,12 @@ body{
 	position: relative;
 }
 .box:first-of-type{
-	right:-5px;
+	right:0px;
+	top: -5px;
 }
 .box:last-of-type{
-	left:-5px;
+	left:0px;
+	top: 5px;
 }
 .box__title, .box__price{
 	font-size: 45px;
@@ -194,4 +191,16 @@ body{
 .navigation__item a{
 	text-decoration: none;
 	color: #171717;
+}
+
+@media only screen and (min-width: 800px) {
+	.container{
+	grid-template-columns: repeat(3, 1fr);
+   }
+   .box:first-of-type{
+	   right: -5px;
+   }
+   .box:last-of-type{
+		left: -5px;
+	}
 }
