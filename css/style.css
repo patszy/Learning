@@ -2,13 +2,3 @@
 	margin: 0;
 	padding: 0;
 }
-
-#clock{
-	width: 80px;
-	background-color: #171717;
-	color: white;
-	position: absolute;
-	right: 0;
-	top: 0;
-	text-align: center;
-}

@@ -6,34 +6,8 @@
 		<meta name="description" content="First page of learning">
 		<link rel="stylesheet" href="css/style.css">
 		<script type="text/javascript" src="js/script.js"></script>
-		<script>
-			function count(){
-				var time = new Date();
-				var day = time.getDate();
-				if(day<10) day="0"+day;
-				var month = time.getMonth()+1;
-				if(month<10) month="0"+month;
-				var year = time.getFullYear();
-
-				var hour = time.getHours();
-				if(hour<10) hour="0"+hour;
-				var minute = time.getMinutes();
-				if(minute<10) minute="0"+minute;
-				var second = time.getSeconds();
-				if(second<10) second="0"+second;
-
-				document.getElementById("clock").innerHTML=
-				day+"."+month+"."+year+" "+hour+":"+minute+":"+second;
-
-				setTimeout("count()", 1000);
-			}
-		</script>
 	</head>
-	<body onload="count();">
-		<div id="clock"></div>
-		<input type="text" id="field_1"/>
-		<input type="text" id="field_2"/>
-		<input type="submit" value="Check" onclick="calc()"/>
+	<body onload="even();">
 		<div id="result"></div>
 	</body>
 </html>

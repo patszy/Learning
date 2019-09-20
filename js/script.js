@@ -1,25 +1,12 @@
-function count(){
-    var time = new Date();
-    var day = time.getDate();
-    var month = time.getMonth()+1;
-    var year = time.getFullYear();
-
-    var hour = time.getHours();
-    var minute = time.getMinutes();
-    var second = time.getSeconds();
-
-    document.getElementsById("clock").innerHTML=
-    day+"/"+month+"/"+year+" | "+hour+":"+minute+"/"+second;
-    console.log("HERE");
-}
-
-function calc(){
-    var number1 = document.getElementById("field_1").value;
-    var number2 = document.getElementById("field_2").value;
-    var result = "";
-
-    for(i=0; i<=number2; i++){
-        result += i+" ";
+const numbers = [2, 5, 7, 10, 34, 16, 879, 1];
+function even(){
+    var table = [];
+    var n = 0;
+    for(i=0; i<numbers.length; i++){
+        if(numbers[i]%2==0){
+            table[n]=numbers[i];
+            n++;
+        }
     }
-    document.getElementById("result").innerHTML = result;
+    console.log(table);
 }
