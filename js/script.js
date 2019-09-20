@@ -12,3 +12,14 @@ function count(){
     day+"/"+month+"/"+year+" | "+hour+":"+minute+"/"+second;
     console.log("HERE");
 }
+
+function calc(){
+    var number1 = document.getElementById("field_1").value;
+    var number2 = document.getElementById("field_2").value;
+    var result = "";
+
+    for(i=0; i<=number2; i++){
+        result += i+" ";
+    }
+    document.getElementById("result").innerHTML = result;
+}

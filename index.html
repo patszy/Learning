@@ -23,7 +23,7 @@
 				if(second<10) second="0"+second;
 
 				document.getElementById("clock").innerHTML=
-				day+"."+month+"."+year+" | "+hour+":"+minute+":"+second;
+				day+"."+month+"."+year+" "+hour+":"+minute+":"+second;
 
 				setTimeout("count()", 1000);
 			}
@@ -31,5 +31,9 @@
 	</head>
 	<body onload="count();">
 		<div id="clock"></div>
+		<input type="text" id="field_1"/>
+		<input type="text" id="field_2"/>
+		<input type="submit" value="Check" onclick="calc()"/>
+		<div id="result"></div>
 	</body>
 </html>
