@@ -27,3 +27,10 @@ h1{
 .jumpers figcaption{
 	margin-top: 8px;
 }
+.navbar-brand img{
+	width: 30px;
+	height: 30px;
+}
+.bg-jumper{
+	background-color: #91a33b;
+}
