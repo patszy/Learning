@@ -3,7 +3,7 @@ Here I included files I created learning HTML, CSS, JS and its frameworks from i
 
 Plan:
     -HTML:
-      *Basic Tags	
+      *Basic Tags
       *Tables
       *Forms
       *HTML5
@@ -13,7 +13,7 @@ Plan:
       *Flex/Grid
       *ResponsiveWebDesign
       *SASS
-      *Bootstrap	
+      *Bootstrap
     -JavaScript:
       *Variables/Arrays/Loops
       *Functions/Events
@@ -22,3 +22,6 @@ Plan:
       *Vue/React
 
     -Create Portfolio.
+      *Creato Some web Sites.
+      *Copying Some Authors.
+      *Add them to Portfolio.
