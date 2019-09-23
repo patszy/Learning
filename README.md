@@ -4,7 +4,6 @@ Here I included files I created learning HTML, CSS, JS and its frameworks from i
 Plan:
     -HTML:
       *Basic Tags	
-      *
       *Tables
       *Forms
       *HTML5
